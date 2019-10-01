@@ -1,9 +1,11 @@
 import tensorflow as tf
+from helper import deprecated
 
 NUM_SHIRTS = 69
 SHIRT_MESSAGE = "Gimme shirt pls"
 
 
+@deprecated
 def brute_force_shirt(num_shirts=NUM_SHIRTS, shirt_message=SHIRT_MESSAGE):
     for i in range(num_shirts):
         print(shirt_message)
