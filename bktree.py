@@ -32,7 +32,6 @@ class BKTree:
         self.nodes = {'tshirt': self.root}
 
         for i, word in enumerate(words):
-            print('%d / %d' % (i, len(words)))
             node_to_check = self.root
             while node_to_check:
                 lev = Levenshtein.distance(node_to_check.data, word)
