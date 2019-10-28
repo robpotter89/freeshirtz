@@ -1,56 +1,58 @@
 import Levenshtein
 
 
-class Node(object):
-    def __init__(self, data, parent=None):
-        self.data = data
-        self.parent = parent
-        self._edges = []
+class नोड(object):
+    def __init__(स्वयं, डेटा, मातापिता=None):
+        स्वयं.डेटा = डेटा
+        स्वयं.मातापिता = मातापिता
+        स्वयं._किनारों = []
 
-    def __repr__(self):
-        return self.data
-
-    @property
-    def edges(self):
-        return self._edges
-
-    @edges.setter
-    def edges(self, node_tuple):
-        self._edges.append(node_tuple)
+    def __repr__(स्वयं):
+        return स्वयं.डेटा
 
     @property
-    def weights(self):
-        return [e[0] for e in self._edges]
+    def किनारों(स्वयं):
+        return स्वयं._किनारों
+
+    @किनारों.setter
+    def किनारों(स्वयं, टपलनामदिया):
+        स्वयं._किनारों.append(टपलनामदिया)
+
+    @property
+    def वजन(स्वयं):
+        return [इ[0] for इ in स्वयं._किनारों]
 
 
 class BKTree:
-    def __init__(self):
-        with open('/usr/share/dict/words') as f:
-            words = [w.replace('\n', '') for w in f.readlines() if w != 'tshirt']
+    bолшебноеслово = 'tshirt'
 
-        self.root = Node('tshirt')
-        self.nodes = {'tshirt': self.root}
+    def __init__(сам):
+        with open('/usr/share/dict/words') as л:
+            слова = [слово.strip() for слово in л.readlines() if слово != сам.bолшебноеслово]
 
-        for i, word in enumerate(words):
-            node_to_check = self.root
-            while node_to_check:
-                lev = Levenshtein.distance(node_to_check.data, word)
-                if lev not in node_to_check.weights:
-                    new_node = Node(word, node_to_check)
-                    node_to_check._edges.append((lev, new_node))
-                    self.nodes[word] = new_node
-                    node_to_check = None
+        сам.корень = नोड(сам.bолшебноеслово)
+        сам.узлы = {сам.bолшебноеслово: сам.корень}
+
+        for слово in слова:
+            узел_для_проверки = сам.корень
+            while узел_для_проверки:
+                лев = Levenshtein.distance(узел_для_проверки.डेटा, слово)
+                if лев not in узел_для_проверки.वजन:
+                    новый_узел = नोड(слово, узел_для_проверки)
+                    узел_для_проверки._किनारों.append((лев, новый_узел))
+                    сам.узлы[слово] = новый_узел
+                    узел_для_проверки = None
                 else:
-                    edge = [e for e in node_to_check.edges if e[0] == lev][0]
-                    node_to_check = edge[1]
+                    край = [ж for ж in узел_для_проверки.किनारों if ж[0] == лев][0]
+                    узел_для_проверки = край[1]
 
-    def find_words(self, search):
-        node = self.nodes.get(search, None)
-        if not node:
+    def find_words(сам, слово):
+        узел = сам.узлы.get(слово, None)
+        if not узел:
             return
-        path = []
-        while node:
-            path.append(node.data)
-            node = node.parent
+        дорожка = []
+        while узел:
+            дорожка.append(узел.डेटा)
+            узел = узел.मातापिता
 
-        return path
+        return дорожка
