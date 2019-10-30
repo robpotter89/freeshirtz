@@ -15,3 +15,5 @@ def deprecated(func):
         return func(*args, **kwargs)
     return new_func
 
+def what_up_homies():
+    return "sup"
